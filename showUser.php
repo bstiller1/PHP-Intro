@@ -2,14 +2,18 @@
 include('include/connectDB.php');
 $sqlStatement = "SELECT * FROM customers";
 $result = mysql_query($sqlStatement, $dbConn);
-$customerRecord = mysql_fetch_array($result);
-if(!$customerRecord)
+//$customerRecord = mysql_fetch_array($result);
+if(!$result)
 {
 	die('Error: ' . mysql_error());
 }
-echo "<p>Customer ID: ". $customerRecord['customerID'] . "</p>";
-echo "<p>Customer Name: ". $customerRecord['customerName'] . "</p>";
-echo "<p>Customer Email: ". $customerRecord['customerEmail'] . "</p>";
+while($row = mysql_fetch_array($result))
+    $rows[] = $row;
+foreach($rows as $row){ 
+echo "<p>" . $row['customerID'] . " ";
+echo $row['customerName']. " ";
+echo $row['customerEmail']. "</p>";
+}
 
 include('include/closeDB.php');
 ?>
